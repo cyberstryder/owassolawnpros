@@ -768,6 +768,14 @@ footer h4{font-family:var(--display);font-size:.82rem;letter-spacing:.12em;text-
               </div>
             </div>
             <div class="field">
+              <label for="qEmail">Email</label>
+              <input id="qEmail" name="email" type="email" autocomplete="email" placeholder="you@example.com" required />
+            </div>
+            <div class="field">
+              <label for="qAddress">Service address <span class="field-hint" style="margin:0;display:inline">(street + town is plenty)</span></label>
+              <input id="qAddress" name="address" type="text" autocomplete="street-address" placeholder="1234 N Main St, Owasso" required />
+            </div>
+            <div class="field">
               <label for="qService">Which service do you need?</label>
               <select id="qService" name="service" required>
                 <option value="" disabled selected>Choose a service…</option>
@@ -781,10 +789,6 @@ footer h4{font-family:var(--display);font-size:.82rem;letter-spacing:.12em;text-
                 <option>One-time visit</option>
                 <option>Not sure — help me decide</option>
               </select>
-            </div>
-            <div class="field">
-              <label for="qAddress">Service address <span class="field-hint" style="margin:0;display:inline">(street + town is plenty)</span></label>
-              <input id="qAddress" name="address" type="text" autocomplete="street-address" placeholder="1234 N Main St, Owasso" required />
             </div>
             <div class="field">
               <label for="qNotes">Tell us about the job <span class="field-hint" style="margin:0;display:inline">(optional)</span></label>
@@ -974,12 +978,14 @@ footer h4{font-family:var(--display);font-size:.82rem;letter-spacing:.12em;text-
     e.preventDefault();
     var name = document.getElementById('qName');
     var phone = document.getElementById('qPhone');
+    var email = document.getElementById('qEmail');
     var address = document.getElementById('qAddress');
     var ok = true;
     if(!name.value.trim()){ fieldError(name); ok=false; }
     if(!phone.value.trim()){ fieldError(phone); ok=false; }
-    if(!serviceSelect.value){ fieldError(serviceSelect); ok=false; }
+    if(!/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(email.value.trim())){ fieldError(email); ok=false; }
     if(!address.value.trim()){ fieldError(address); ok=false; }
+    if(!serviceSelect.value){ fieldError(serviceSelect); ok=false; }
     if(!ok){
       var first = form.querySelector('[style*="border-color"]');
       if(first) first.focus();
